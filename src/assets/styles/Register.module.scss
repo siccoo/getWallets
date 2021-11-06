@@ -1,0 +1,14 @@
+@import "../../variables.scss";
+
+.container {
+    height: 100vh;
+
+    &__form {
+        width: 24rem;
+
+        &__register {
+            width: 14rem;
+            background: $background;
+        }
+    } 
+}
