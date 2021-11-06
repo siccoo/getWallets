@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import makeAPICall from "../../config";
+import makeAPICall from "../../utils/config";
 import { useHistory } from "react-router";
 
 import { setAuth } from "../../utils/Auth";
