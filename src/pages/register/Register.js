@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import makeAPICall from "../../config";
 import { useHistory } from "react-router";
 
-import { setAuth } from "../../Auth";
+import { setAuth } from "../../utils/Auth";
 
 import styles from "../../assets/styles/Register.module.scss";
 
