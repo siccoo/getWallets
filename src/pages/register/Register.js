@@ -59,7 +59,7 @@ const Register = () => {
           >
             Registration Form
           </legend>
-          <form>
+          
             <div className="form-group">
               <label htmlFor="inputForEmail">Email address</label>
               <span className="mandatory">*</span>
@@ -115,7 +115,6 @@ const Register = () => {
                 <Link to="/login">Cancel</Link>
               </button>
             </div>
-          </form>
         </fieldset>
       </div>
     </div>

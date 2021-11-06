@@ -55,9 +55,8 @@ const Login = () => {
           <legend
             className={`${styles.container__form__register} border rounded p-1 text-center`}
           >
-            Registration Form
+            Login Form
           </legend>
-          <form>
             <div className="form-group">
               <label htmlFor="inputForEmail">Email address</label>
               <span className="mandatory">*</span>
@@ -95,7 +94,6 @@ const Login = () => {
                 <Link to="/register">Register</Link>
               </button>
             </div>
-          </form>
         </fieldset>
       </div>
     </div>
