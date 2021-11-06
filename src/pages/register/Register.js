@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import makeAPICall from "../../config";
+import { useHistory } from "react-router";
+
+import { setAuth } from "../../Auth";
 
 import styles from "../../assets/styles/Register.module.scss";
 
 const Register = () => {
+    const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [inputValues, setInputValues] = useState({
     email: "",
@@ -37,7 +41,9 @@ const Register = () => {
     })
       .then((data) => {
         console.log(data);
+        setAuth(data)
         setLoading(false);
+        history.push("/dashboard");
       })
       .catch((err) => console.log(err));
   };

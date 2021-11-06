@@ -7,6 +7,8 @@ import Register from "./pages/register/Register";
 import NotFound from "./pages/notFound/NotFound";
 import Dashboard from "./pages/dashboard/Dashboard";
 
+import PrivateRoute from './PrivateRoute';
+
 const Routes = (props) => (
     <Router {...props}>
         <Switch>
@@ -16,12 +18,7 @@ const Routes = (props) => (
             <Route path="/register">
                 <Register />
             </Route>
-            <Route path="/dashboard">
-                <Dashboard />
-            </Route>
-            <Route exact path="/">
-                <Redirect to="/dashboard" />
-            </Route>
+            <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <Route path="*">
                 <NotFound />
             </Route>

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import makeAPICall from "../../config";
+import { useHistory } from "react-router";
+
+import { setAuth } from "../../Auth";
 
 import styles from "../../assets/styles/Register.module.scss";
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const history = useHistory();
   const [inputValues, setInputValues] = useState({
     email: "",
     password: "",
@@ -21,7 +25,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setLoading(true)
+    setLoading(true);
 
     const data = {
       email: inputValues.email,
@@ -35,7 +39,9 @@ const Login = () => {
     })
       .then((data) => {
         console.log(data);
+        setAuth(data);
         setLoading(false);
+        history.push("/dashboard")
       })
       .catch((err) => console.log(err));
   };
@@ -81,12 +87,7 @@ const Login = () => {
                 type="submit"
                 className="btn btn-outline-primary"
                 onClick={handleSubmit}
-                disabled={
-                  !(
-                    inputValues.email &&
-                    inputValues.password
-                  )
-                }
+                disabled={!(inputValues.email && inputValues.password)}
               >
                 {loading === true ? "Loading" : "Login"}
               </button>
