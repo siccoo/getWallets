@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import config from "../../config";
@@ -6,7 +6,7 @@ import config from "../../config";
 import styles from "../../assets/styles/Register.module.scss";
 
 const Register = () => {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit, formState: { errors } } = useForm();
   const [message, setMessage] = useState();
 
   const onSubmit = (data, e) => {
@@ -37,7 +37,7 @@ const Register = () => {
     <div
       className={`${styles.container} container-fluid d-flex align-items-center justify-content-center`}
     >
-      <div className={styles.registrationFormContainer}>
+      <div className={styles.container__form}>
         {message && (
           <div
             className={`alert fade show d-flex ${message.type}`}
@@ -55,7 +55,7 @@ const Register = () => {
         )}
         <fieldset className="border p-3 rounded">
           <legend
-            className={`${styles.registrationFormLegend} border rounded p-1 text-center`}
+            className={`${styles.container__form__register} border rounded p-1 text-center`}
           >
             Registration Form
           </legend>
@@ -70,24 +70,7 @@ const Register = () => {
                 className="form-control"
                 aria-describedby="Enter email address"
                 placeholder="Enter email address"
-                ref={register({
-                  required: {
-                    value: true,
-                    message: "Please enter your email address",
-                  },
-                  pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                    message: "Enter a valid email address",
-                  },
-                  minLength: {
-                    value: 6,
-                    message: "Minimum 6 characters are allowed",
-                  },
-                  maxLength: {
-                    value: 255,
-                    message: "Maximum 255 characters are allowed",
-                  },
-                })}
+                {...register("email", {required: true})}
               />
               {/**
                * we provide validation configuration for email field above
@@ -109,20 +92,7 @@ const Register = () => {
                 className="form-control"
                 aria-describedby="Enter your name"
                 placeholder="Enter your name"
-                ref={register({
-                  required: {
-                    value: true,
-                    message: "Please enter your name",
-                  },
-                  minLength: {
-                    value: 6,
-                    message: "Minimum 6 characters are allowed",
-                  },
-                  maxLength: {
-                    value: 255,
-                    message: "Maximum 255 characters are allowed",
-                  },
-                })}
+                {...register("name", {required: true})}
               />
               {errors.name && (
                 <span className={`${styles.errorMessage} mandatory`}>
@@ -139,20 +109,7 @@ const Register = () => {
                 className="form-control"
                 id="inputForPassword"
                 placeholder="Enter password"
-                ref={register({
-                  required: {
-                    value: true,
-                    message: "Please enter password",
-                  },
-                  minLength: {
-                    value: 6,
-                    message: "Minimum 6 characters are allowed",
-                  },
-                  maxLength: {
-                    value: 255,
-                    message: "Maximum 255 characters are allowed",
-                  },
-                })}
+                {...register("password", {required: true})}
               />
               {errors.password && (
                 <span className={`${styles.errorMessage} mandatory`}>
