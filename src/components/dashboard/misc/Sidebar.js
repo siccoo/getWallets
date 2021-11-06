@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { removeState } from "../../../utils/logOut";
 import { useHistory } from "react-router";
 
+import "../../../assets/styles/Sidebar.scss";
+
 export default function Sidebar() {
   const history = useHistory();
   function handleLogout() {
@@ -35,10 +37,10 @@ export default function Sidebar() {
           >
             <div className="i-power-list-col-text">OVERVIEW</div>
           </Link>
-          <Link to="/dashboard/transaction" className="i-power-list-row ">
+          <Link to="/dashboard/wallet" className="i-power-list-row ">
             <div className="i-power-list-col-text">WALLETS</div>
           </Link>
-          <a href="/" className="i-power-list-row ">
+          <a href="/dashboard/transaction" className="i-power-list-row ">
             <div className="i-power-list-col-text">TRANSACTION</div>
           </a>
           <div onClick={handleLogout} className="i-power-list-row ">
