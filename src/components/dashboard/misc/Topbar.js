@@ -1,5 +1,8 @@
 import React from "react";
 import logo from "../../../assets/images/GetWalletsLogo.svg";
+
+import "../../../assets/styles/Topbar.scss";
+
 export default function Topbar(props) {
   return (
     <>

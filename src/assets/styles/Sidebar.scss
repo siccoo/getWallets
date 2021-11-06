@@ -1,0 +1,19 @@
+.i-dashboard-sidebar {
+  padding: 1%;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 20%;
+  -ms-flex: 0 20%;
+  flex: 0 20%;
+  background-color: #fdf6f2;
+
+  .i-power-sidebar-div {
+    display: block;
+    margin-bottom: 30px;
+    padding: 14px;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #cea18c;
+    border-radius: 3px;
+    background-color: #fff;
+  }
+}

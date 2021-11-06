@@ -5,6 +5,9 @@ import Sidebar from "../../components/dashboard/misc/Sidebar";
 // import Form from "../../components/Dashboard/Overview/Form";
 // import Summary from "../../components/Dashboard/Overview/Summary";
 
+// Styles
+import "../../assets/styles/Dashboard.scss"
+
 const Dashboard = () => {
   const [showForm, setShowForm] = useState(true);
   const [showSummary, setShowSummary] = useState(false);
@@ -22,9 +25,9 @@ const Dashboard = () => {
   return (
     <div className="page-control">
       <Topbar />
-      <div className="i-dashboard-row">
+      <div className="dashboard-row">
         <Sidebar />
-        <div className="i-dashboard-content">
+        <div className="dashboard-content">
           {showSummary ? (
             <div onClick={switchToForm} className="i-power-back">
               Back
