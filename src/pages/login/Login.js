@@ -1,125 +1,104 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import makeAPICall from "../../config";
+
+import styles from "../../assets/styles/Register.module.scss";
 
 const Login = () => {
-    return (
-        <div className="main">
-      <section>
-        <div className="container">
-          <div className="login-content">
-            <div className="login-image">
-              {/* <div className="logo_holder">
-                <header className="header">
-                  <div className="login__logoHolder">
-                    <img src="" alt="App logo" />
-                    <p>SWIRGE</p>
-                  </div>
-                </header>
-              </div> */}
-              <figure className="figure_image_holder">
-                <img src="" alt="hello shape" />
-              </figure>
-            </div>
-            <div className="login-form">
-              <h1><div className="form-title"><span className="wave">👋 </span>Welcome back!</div></h1>
-              <form
-                method="POST"
-                className="register-form"
-                id="login-form"
-              >
-                <div className="form-group">
-                  <label>Username</label>
-                  <input
-                    type={"text"}
-                    placeholder="Username"
-                  />
-                </div>
-                <div className="form-group">
-                  <div className="password-eye-div">
-                    <label>Password</label>
-                    <input
-                      type={'password'}
-                      placeholder="Password"
-                    />
-                    <span
-                    //   className={
-                    //     passwordType === "password"
-                    //       ? "eye-slash"
-                    //       : "eye-slash none"
-                    //   }
-                      onClick={() => console.log()}
-                    >
-                      <i className="fas fa-eye-slash"></i>
-                    </span>
-                    <span
-                    //   className={passwordType === "text" ? "eye" : "eye none"}
-                      onClick={() => console.log()}
-                    >
-                      <i className="far fa-eye"></i>
-                    </span>
-                  </div>
-                </div>
-                <div className="form-group">
-                  <input
-                    type="checkbox"
-                    name="remember-me"
-                    id="remember-me"
-                    className="myCheckbox agree-term"
-                    onClick={() => console.log()}
-                  />
-                  <label htmlFor="remember-me" className="agree-term">
-                    <span> Keep me signed in </span>
-                    <Link className="small" to="/reset">
-                      {" "}
-                      forgot password?{" "}
-                    </Link>
-                  </label>
-                </div>
-                <div className="form-group form-button">
-                  <div className="form-group-button">
-                    <button
-                      type="submit"
-                      variant="danger"
-                      button_class="btn-form-submit"
-                      size={"lg"}
-                      onClick={() => console.log()}
-                    >
-                        Login
-                    </button>
-                  </div>
-                </div>
-              </form>
-              <div className="alternative-footer">
-                <div className="already_user">
-                  <p>
-                    {" "}
-                    Don’t have an account?{" "}
-                    <button className="page-toggle" onClick={() => console.log()}>
-                      {" "}
-                      Register{" "}
-                    </button>{" "}
-                  </p>
-                </div>
-                <div className="guidance">
-                  <ul className="guidance_links">
-                    <li>
-                      <Link to="/terms"> Terms of use</Link>
-                    </li>
-                    <li>
-                      <Link to="/supports"> Supports</Link>
-                    </li>
-                    <li>
-                      <Link to="/privacy"> Privacy policy</Link>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </div>
-    )
-}
+  const [loading, setLoading] = useState(false);
+  const [inputValues, setInputValues] = useState({
+    email: "",
+    password: "",
+  });
 
-export default Login
+  function handleChange(event) {
+    setInputValues({
+      ...inputValues,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setLoading(true)
+
+    const data = {
+      email: inputValues.email,
+      password: inputValues.password,
+    };
+
+    return makeAPICall({
+      path: "users/auth/",
+      method: "POST",
+      payload: data,
+    })
+      .then((data) => {
+        console.log(data);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  return (
+    <div
+      className={`${styles.container} container-fluid d-flex align-items-center justify-content-center`}
+    >
+      <div className={styles.container__form}>
+        <fieldset className="border p-3 rounded">
+          <legend
+            className={`${styles.container__form__register} border rounded p-1 text-center`}
+          >
+            Registration Form
+          </legend>
+          <form>
+            <div className="form-group">
+              <label htmlFor="inputForEmail">Email address</label>
+              <span className="mandatory">*</span>
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Enter email address"
+                value={inputValues.email}
+                onChange={handleChange}
+                name="email"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="inputForPassword">Password</label>
+              <span className="mandatory">*</span>
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Enter password"
+                value={inputValues.password}
+                onChange={handleChange}
+                name="password"
+              />
+            </div>
+            <div className="d-flex align-items-center justify-content-center">
+              <button
+                type="submit"
+                className="btn btn-outline-primary"
+                onClick={handleSubmit}
+                disabled={
+                  !(
+                    inputValues.email &&
+                    inputValues.password
+                  )
+                }
+              >
+                {loading === true ? "Loading" : "Login"}
+              </button>
+              <button className="btn btn-link">
+                <Link to="/register">Register</Link>
+              </button>
+            </div>
+          </form>
+        </fieldset>
+      </div>
+    </div>
+  );
+};
+
+export default Login;

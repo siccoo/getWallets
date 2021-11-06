@@ -1,36 +1,45 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useForm } from "react-hook-form";
-import config from "../../config";
+import makeAPICall from "../../config";
 
 import styles from "../../assets/styles/Register.module.scss";
 
 const Register = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
-  const [message, setMessage] = useState();
+  const [loading, setLoading] = useState(false);
+  const [inputValues, setInputValues] = useState({
+    email: "",
+    organization_name: "",
+    password: "",
+  });
 
-  const onSubmit = (data, e) => {
-    setMessage({
-      data: "Registration is in progress...",
-      type: "alert-warning",
+  function handleChange(event) {
+    setInputValues({
+      ...inputValues,
+      [event.target.name]: event.target.value,
     });
-    fetch(`${config.baseUrl}/user/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        const hasError = "error" in data && data.error != null;
-        setMessage({
-          data: hasError ? data.error : "Registered successfully",
-          type: hasError ? "alert-danger" : "alert-success",
-        });
+  }
 
-        !hasError && e.target.reset();
-      });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setLoading(true)
+
+    const data = {
+      email: inputValues.email,
+      organization_name: inputValues.organization_name,
+      password: inputValues.password,
+    };
+
+    return makeAPICall({
+      path: "users",
+      method: "POST",
+      payload: data,
+    })
+      .then((data) => {
+        console.log(data);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -38,88 +47,63 @@ const Register = () => {
       className={`${styles.container} container-fluid d-flex align-items-center justify-content-center`}
     >
       <div className={styles.container__form}>
-        {message && (
-          <div
-            className={`alert fade show d-flex ${message.type}`}
-            role="alert"
-          >
-            {message.data}
-            <span
-              aria-hidden="true"
-              className="ml-auto cursor-pointer"
-              onClick={() => setMessage(null)}
-            >
-              &times;
-            </span>
-          </div>
-        )}
         <fieldset className="border p-3 rounded">
           <legend
             className={`${styles.container__form__register} border rounded p-1 text-center`}
           >
             Registration Form
           </legend>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate autoComplete="off">
+          <form>
             <div className="form-group">
               <label htmlFor="inputForEmail">Email address</label>
               <span className="mandatory">*</span>
               <input
-                id="inputForEmail"
-                name="email"
                 type="email"
                 className="form-control"
-                aria-describedby="Enter email address"
                 placeholder="Enter email address"
-                {...register("email", {required: true})}
+                value={inputValues.email}
+                onChange={handleChange}
+                name="email"
               />
-              {/**
-               * we provide validation configuration for email field above
-               * error message are displayed with code below
-               */}
-              {errors.email && (
-                <span className={`${styles.errorMessage} mandatory`}>
-                  {errors.email.message}
-                </span>
-              )}
             </div>
             <div className="form-group">
-              <label htmlFor="inputForName">Your Name</label>
+              <label htmlFor="inputForName">Organiztion Name</label>
               <span className="mandatory">*</span>
               <input
-                id="inputForName"
-                name="name"
                 type="text"
                 className="form-control"
-                aria-describedby="Enter your name"
-                placeholder="Enter your name"
-                {...register("name", {required: true})}
+                placeholder="Enter your organization name"
+                value={inputValues.organization_name}
+                onChange={handleChange}
+                name="organization_name"
               />
-              {errors.name && (
-                <span className={`${styles.errorMessage} mandatory`}>
-                  {errors.name.message}
-                </span>
-              )}
             </div>
             <div className="form-group">
               <label htmlFor="inputForPassword">Password</label>
               <span className="mandatory">*</span>
               <input
                 type="password"
-                name="password"
                 className="form-control"
-                id="inputForPassword"
                 placeholder="Enter password"
-                {...register("password", {required: true})}
+                value={inputValues.password}
+                onChange={handleChange}
+                name="password"
               />
-              {errors.password && (
-                <span className={`${styles.errorMessage} mandatory`}>
-                  {errors.password.message}
-                </span>
-              )}
             </div>
             <div className="d-flex align-items-center justify-content-center">
-              <button type="submit" className="btn btn-outline-primary">
-                Submit
+              <button
+                type="submit"
+                className="btn btn-outline-primary"
+                onClick={handleSubmit}
+                disabled={
+                  !(
+                    inputValues.email &&
+                    inputValues.organization_name &&
+                    inputValues.password
+                  )
+                }
+              >
+                {loading === true ? "Loading" : "Submit"}
               </button>
               <button className="btn btn-link">
                 <Link to="/login">Cancel</Link>
