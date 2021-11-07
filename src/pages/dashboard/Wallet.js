@@ -1,10 +1,81 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Topbar from "../../components/dashboard/misc/Topbar";
 import Sidebar from "../../components/dashboard/misc/Sidebar";
+import makeAPICall from "../../utils/configtwo";
 
 import "../../assets/styles/Transaction.scss";
 
-const Wallet = () => {
+const Wallet = (props) => {
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
+  const [showWallet, setShowWallet] = useState(false);
+  const [table, setTable] = useState(false);
+  const [walletItems, setWalletItems] = useState([]);
+  const [inputValues, setInputValues] = useState({
+    customer_email: "",
+  });
+
+  useEffect(() => {
+    getWallets();
+    if (showWallet === true) {
+      getWallets();
+    }
+  }, [showWallet]);
+
+  function handleChange(event) {
+    setInputValues({
+      ...inputValues,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  const getWallets = () => {
+
+    return makeAPICall({
+      path: "wallets",
+      method: "GET",
+    })
+      .then((data) => {
+        setWalletItems(data.data);
+        setTable(true);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const list = walletItems.map((walletItem, index) => {
+    return (
+      <tr key={index}>
+        <td>{walletItem.status}</td>
+        <td>{walletItem.customer_email}</td>
+        <td>{walletItem.wallet_id}</td>
+        <td>{walletItem.balance}</td>
+        <td>{walletItem.created_at}</td>
+      </tr>
+    );
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    setLoading(true);
+
+    const data = {
+      customer_email: inputValues.customer_email,
+    };
+
+    return makeAPICall({
+      path: "wallets",
+      method: "POST",
+      payload: data,
+    })
+      .then((data) => {
+        // console.log(data);
+        setLoading(false);
+        setShowWallet(true);
+      })
+      .catch((err) => console.log(err));
+  };
   return (
     <div className="page-control">
       <Topbar />
@@ -12,80 +83,51 @@ const Wallet = () => {
         <Sidebar />
         <div className="i-dashboard-content">
           <div className="history-heading">
-            <div className="i-power-history-header">Transaction History</div>
+            <div className="i-power-history-header">Wallet List</div>
             <div>
-              <span className="i-power-search-field" > Fund your wallet</span>
+              <span className="i-power-search-field"> Fund your wallet</span>
+            </div>
+          </div>
+          
+          <div className="content-form-div">
+            <div>
+              <div className="i-power-form-rol">
+                <div className="i-power-form-col">
+                  <div className="form-col-label">
+                    Customer <span className="form-col-spotlight">Email</span> ?{" "}
+                    <span className="form-col-required">*</span>
+                  </div>
+                  <input
+                    type="email"
+                    className="i-power-form-textfield w-input"
+                    name="customer_email"
+                    value={inputValues.customer_email}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+              <div className="i-power-form-rol">
+                <div className="i-power-form-col i-btn">
+                  <button onClick={handleSubmit} className="i-power-button">
+                    {loading === true ? "Loading" : "Create Wallet"}
+                  </button>
+                </div>
+                <div className="i-power-form-col _2"></div>
+              </div>
             </div>
           </div>
           <div className="history-table">
             <table>
               <thead>
                 <tr>
-                  <th>
-                    <input type="checkbox" />
-                  </th>
-                  <th>Customer Name</th>
-                  <th>Wallet ID</th>
-                  <th>Email</th>
-                  <th>Unit</th>
-                  <th>Balance</th>
                   <th>Status</th>
+                  <th>Customer Email</th>
+                  <th>Wallet ID</th>
+                  <th>Balance</th>
+                  <th>Date</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                  <td>Alfred Akinola</td>
-                  <td>239238932989</td>
-                  <td>Lagos</td>
-                  <td>2.0</td>
-                  <td>N30,000</td>
-                  <td>
-                    <div className="method-style">Card</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                  <td>Alfred Akinola</td>
-                  <td>239238932989</td>
-                  <td>Lagos</td>
-                  <td>2.0</td>
-                  <td>N30,000</td>
-                  <td>
-                    <div className="method-style">Card</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                  <td>Alfred Akinola</td>
-                  <td>239238932989</td>
-                  <td>Lagos</td>
-                  <td>2.0</td>
-                  <td>N30,000</td>
-                  <td>
-                    <div className="method-style">Card</div>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <input type="checkbox" />
-                  </td>
-                  <td>Alfred Akinola</td>
-                  <td>239238932989</td>
-                  <td>Lagos</td>
-                  <td>2.0</td>
-                  <td>N30,000</td>
-                  <td>
-                    <div className="method-style">Card</div>
-                  </td>
-                </tr>
-              </tbody>
+              {table && <tbody>{list}</tbody>}
             </table>
           </div>
         </div>
@@ -95,4 +137,3 @@ const Wallet = () => {
 };
 
 export default Wallet;
-

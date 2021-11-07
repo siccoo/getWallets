@@ -8,7 +8,7 @@ import { setAuth } from "../../utils/Auth";
 import styles from "../../assets/styles/Register.module.scss";
 
 const Register = () => {
-    const history = useHistory();
+  const history = useHistory();
   const [loading, setLoading] = useState(false);
   const [inputValues, setInputValues] = useState({
     email: "",
@@ -26,7 +26,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setLoading(true)
+    setLoading(true);
 
     const data = {
       email: inputValues.email,
@@ -40,8 +40,8 @@ const Register = () => {
       payload: data,
     })
       .then((data) => {
-        console.log(data);
-        setAuth(data)
+        // console.log(data);
+        setAuth(data);
         setLoading(false);
         history.push("/dashboard");
       })
@@ -59,62 +59,62 @@ const Register = () => {
           >
             Registration Form
           </legend>
-          
-            <div className="form-group">
-              <label htmlFor="inputForEmail">Email address</label>
-              <span className="mandatory">*</span>
-              <input
-                type="email"
-                className="form-control"
-                placeholder="Enter email address"
-                value={inputValues.email}
-                onChange={handleChange}
-                name="email"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="inputForName">Organiztion Name</label>
-              <span className="mandatory">*</span>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Enter your organization name"
-                value={inputValues.organization_name}
-                onChange={handleChange}
-                name="organization_name"
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="inputForPassword">Password</label>
-              <span className="mandatory">*</span>
-              <input
-                type="password"
-                className="form-control"
-                placeholder="Enter password"
-                value={inputValues.password}
-                onChange={handleChange}
-                name="password"
-              />
-            </div>
-            <div className="d-flex align-items-center justify-content-center">
-              <button
-                type="submit"
-                className="btn btn-outline-primary"
-                onClick={handleSubmit}
-                disabled={
-                  !(
-                    inputValues.email &&
-                    inputValues.organization_name &&
-                    inputValues.password
-                  )
-                }
-              >
-                {loading === true ? "Loading" : "Submit"}
-              </button>
-              <button className="btn btn-link">
-                <Link to="/login">Cancel</Link>
-              </button>
-            </div>
+
+          <div className="form-group">
+            <label htmlFor="inputForEmail">Email address</label>
+            <span className="mandatory">*</span>
+            <input
+              type="email"
+              className="form-control"
+              placeholder="Enter email address"
+              value={inputValues.email}
+              onChange={handleChange}
+              name="email"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="inputForName">Organiztion Name</label>
+            <span className="mandatory">*</span>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Enter your organization name"
+              value={inputValues.organization_name}
+              onChange={handleChange}
+              name="organization_name"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="inputForPassword">Password</label>
+            <span className="mandatory">*</span>
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Enter password"
+              value={inputValues.password}
+              onChange={handleChange}
+              name="password"
+            />
+          </div>
+          <div className="d-flex align-items-center justify-content-center">
+            <button
+              type="submit"
+              className="btn btn-outline-primary"
+              onClick={handleSubmit}
+              disabled={
+                !(
+                  inputValues.email &&
+                  inputValues.organization_name &&
+                  inputValues.password
+                )
+              }
+            >
+              {loading === true ? "Loading" : "Submit"}
+            </button>
+            <button className="btn btn-link">
+              <Link to="/login">Cancel</Link>
+            </button>
+          </div>
         </fieldset>
       </div>
     </div>

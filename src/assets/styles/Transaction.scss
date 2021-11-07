@@ -34,6 +34,23 @@
         }
       }
 
+      .content-form-div {
+        .i-power-form-rol {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          margin-bottom: 10px;
+  
+          .i-power-form-col {
+            -webkit-box-flex: 0;
+            -webkit-flex: 0 50%;
+            -ms-flex: 0 50%;
+            flex: 0 50%;
+          }
+        }
+      }
+
       .history-table {
         padding: 20px;
         border-style: solid;
@@ -73,10 +90,10 @@
               td {
                 color: #5d5d5d;
                 text-align: left;
-                padding:10px !important;
+                padding: 10px !important;
                 font-size: 12px;
 
-                .method-style{
+                .method-style {
                   border-radius: 3px;
                   border: 1px solid #b3b3b3;
                   text-align: center;
