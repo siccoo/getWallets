@@ -19,6 +19,103 @@
       -webkit-flex: 0 80%;
       -ms-flex: 0 80%;
       flex: 0 80%;
+
+      .content-heading {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border-bottom: 3px solid #0079ff;
+
+        .content-heading-col-1 {
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: -ms-flexbox;
+          display: flex;
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          -ms-flex-pack: center;
+          justify-content: center;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          -ms-flex-align: center;
+          align-items: center;
+          -webkit-box-flex: 0;
+          -webkit-flex: 0 10%;
+          -ms-flex: 0 10%;
+          flex: 0 10%;
+        }
+      }
+
+      .content-header {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        margin-bottom: 20px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+
+        .content-header-col-1 {
+          
+        }
+      }
+
+      .dashboard-over {
+        display: flex;
+        // padding: 20px 15px 10px 15px;
+        // margin-top: 30px;
+        // margin-bottom: 60px;
+        .container-fluid {
+          width: 100%;
+          padding-right: 15px;
+          padding-left: 15px;
+          margin-right: auto;
+          margin-left: auto;
+          display: flex;
+
+          .row {
+            display: flex;
+
+            .card {
+              border: 1px solid #eef8fd;
+              box-sizing: border-box;
+              border-radius: 2px;
+              position: relative;
+              display: -ms-flexbox;
+              display: flex;
+              -ms-flex-direction: column;
+              flex-direction: column;
+              min-width: 0;
+              word-wrap: break-word;
+              background-color: #fff;
+              background-clip: border-box;
+              border: 1px solid rgba(0, 0, 0, 0.125);
+              border-radius: 0.25rem;
+
+              .card-text {
+                padding: 1.5rem !important;
+
+                h4 {
+                  font-size: 12px;
+                  line-height: 16px;
+                  color: #787c90;
+                }
+
+                p {
+                  font-family: "Segoe UI";
+                  font-size: 18px;
+                  line-height: 24px;
+                  color: #6c757d !important;
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

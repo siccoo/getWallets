@@ -19,6 +19,7 @@
 
       .history-heading {
         margin-bottom: 50px;
+        display: inline-block;
 
         .i-power-history-header {
           margin-bottom: 10px;
@@ -29,6 +30,7 @@
           width: 40% !important;
           height: 35px;
           border-radius: 3px;
+          vertical-align: middle;
         }
       }
 
@@ -36,7 +38,7 @@
         padding: 20px;
         border-style: solid;
         border-width: 1px;
-        border-color: #ffd6c3;
+        border-color: #0079ff;
         border-radius: 5px;
 
         table {
@@ -46,7 +48,7 @@
           overflow: auto;
 
           thead {
-            background: #fdf7f4;
+            background: #f4f9ff;
             border-radius: 10px !important;
 
             tr {
@@ -76,8 +78,13 @@
 
                 .method-style{
                   border-radius: 3px;
-                  border: 1px solid rgb(179, 179, 179);
+                  border: 1px solid #b3b3b3;
                   text-align: center;
+                  cursor: pointer;
+
+                  &:hover {
+                    background: #dddddd;
+                  }
                 }
               }
             }

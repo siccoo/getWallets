@@ -17,7 +17,7 @@ export default function Sidebar() {
       <div className="i-dashboard-sidebar">
         <div className="i-power-sidebar-div">
           <div className="i-poer-sidebar-div-header">
-            Powerdeal ID <span className="id-span">1234567</span>
+            GetWallets <span className="id-span">1234567</span>
           </div>
           <div className="sidebar-div-row">
             <div className="sidebar-div-col">
@@ -32,7 +32,7 @@ export default function Sidebar() {
         </div>
         <div className="i-power-sidebar-nav">
           <Link
-            to="/dashboard/overview"
+            to="/dashboard"
             className="i-power-list-row link-active"
           >
             <div className="i-power-list-col-text">OVERVIEW</div>

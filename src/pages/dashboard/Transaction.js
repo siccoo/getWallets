@@ -13,7 +13,7 @@ const Transaction = () => {
         <div className="i-dashboard-content">
           <div className="history-heading">
             <div className="i-power-history-header">Transaction History</div>
-            <div>
+            {/* <div>
               <form>
                 <input
                   type="text"
@@ -22,7 +22,7 @@ const Transaction = () => {
                   id="name"
                 />
               </form>
-            </div>
+            </div> */}
           </div>
           <div className="history-table">
             <table>
@@ -31,12 +31,12 @@ const Transaction = () => {
                   <th>
                     <input type="checkbox" />
                   </th>
-                  <th>Name</th>
-                  <th>Meter Number</th>
-                  <th>Address</th>
+                  <th>Customer Name</th>
+                  <th>Wallet ID</th>
+                  <th>Email</th>
                   <th>Unit</th>
-                  <th>Amount</th>
-                  <th>Method</th>
+                  <th>Balance</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
