@@ -6,6 +6,7 @@ import { useHistory } from "react-router";
 import { setAuth } from "../../utils/Auth";
 
 import styles from "../../assets/styles/Register.module.scss";
+import logo from "../../assets/images/GetWalletsLogo.svg";
 
 const Register = () => {
   const history = useHistory();
@@ -40,7 +41,7 @@ const Register = () => {
       payload: data,
     })
       .then((data) => {
-        // console.log(data);
+        console.log(data);
         setAuth(data);
         setLoading(false);
         history.push("/dashboard");
@@ -53,6 +54,9 @@ const Register = () => {
       className={`${styles.container} container-fluid d-flex align-items-center justify-content-center`}
     >
       <div className={styles.container__form}>
+        <div className="container__image">
+          <img src={logo} loading="lazy" width="150" alt="" style={{ margin: "auto"}} />
+        </div>
         <fieldset className="border p-3 rounded">
           <legend
             className={`${styles.container__form__register} border rounded p-1 text-center`}
@@ -112,7 +116,7 @@ const Register = () => {
               {loading === true ? "Loading" : "Submit"}
             </button>
             <button className="btn btn-link">
-              <Link to="/login">Cancel</Link>
+              <Link to="/login">Login</Link>
             </button>
           </div>
         </fieldset>

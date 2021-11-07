@@ -5,7 +5,7 @@ import makeAPICall from "../../utils/configtwo";
 
 import "../../assets/styles/Transaction.scss";
 
-const Wallet = (props) => {
+const Wallet = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState("");
   const [error, setError] = useState("");
@@ -16,22 +16,7 @@ const Wallet = (props) => {
     customer_email: "",
   });
 
-  useEffect(() => {
-    getWallets();
-    if (showWallet === true) {
-      getWallets();
-    }
-  }, [showWallet]);
-
-  function handleChange(event) {
-    setInputValues({
-      ...inputValues,
-      [event.target.name]: event.target.value,
-    });
-  }
-
   const getWallets = () => {
-
     return makeAPICall({
       path: "wallets",
       method: "GET",
@@ -43,9 +28,39 @@ const Wallet = (props) => {
       .catch((err) => console.log(err));
   };
 
+  useEffect(() => {
+    if (showWallet === true) {
+      getWallets();
+    }
+  }, [showWallet]);
+
+  useEffect(() => {
+    getWallets();
+  }, []);
+
+  function handleChange(event) {
+    setInputValues({
+      ...inputValues,
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  const getTransactionDetails = (item) => {
+    return makeAPICall({
+      path: `transactions/wallets/${item.wallet_id}`,
+      method: "GET",
+    })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const list = walletItems.map((walletItem, index) => {
     return (
-      <tr key={index}>
+      <tr key={index} onClick={() => getTransactionDetails(walletItem)}>
         <td>{walletItem.status}</td>
         <td>{walletItem.customer_email}</td>
         <td>{walletItem.wallet_id}</td>
@@ -71,10 +86,14 @@ const Wallet = (props) => {
     })
       .then((data) => {
         // console.log(data);
+        setSuccess("Wallet created successfully...");
         setLoading(false);
         setShowWallet(true);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setError(err.message);
+        console.log(err);
+      });
   };
   return (
     <div className="page-control">
@@ -88,7 +107,8 @@ const Wallet = (props) => {
               <span className="i-power-search-field"> Fund your wallet</span>
             </div>
           </div>
-          
+          <p>{error && error}</p>
+          <p>{success && success}</p>
           <div className="content-form-div">
             <div>
               <div className="i-power-form-rol">
@@ -117,18 +137,21 @@ const Wallet = (props) => {
             </div>
           </div>
           <div className="history-table">
-            <table>
-              <thead>
-                <tr>
-                  <th>Status</th>
-                  <th>Customer Email</th>
-                  <th>Wallet ID</th>
-                  <th>Balance</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              {table && <tbody>{list}</tbody>}
-            </table>
+            {table && (
+              <table>
+                <thead>
+                  <tr>
+                    <th>Status</th>
+                    <th>Customer Email</th>
+                    <th>Wallet ID</th>
+                    <th>Balance</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+
+                <tbody>{list}</tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>

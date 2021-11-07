@@ -9,7 +9,7 @@ export default function Sidebar() {
   const history = useHistory();
   function handleLogout() {
     removeState();
-    history.push("/");
+    history.push("/login");
   }
 
   return (
