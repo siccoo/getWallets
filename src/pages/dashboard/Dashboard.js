@@ -40,8 +40,7 @@ const Dashboard = () => {
             </div>
             <div className="content-heading-col-2">
               <div className="heading-col-2-header">
-                <span className="heading-col-2-span">Hi Nkem,</span> get your
-                electricity token quickly
+                <span className="heading-col-2-span">Hi You,</span> Welcome to your dashboard
               </div>
               {/* <div className="heading-col-text"></div> */}
             </div>
