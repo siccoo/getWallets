@@ -6,16 +6,15 @@ import Home from "./pages/Home";
 import Coin from "./pages/Coin";
 import { makeStyles } from '@material-ui/core';
 
-
+const useStyles = makeStyles(() => ({
+  crypto__app:  {
+    backgroundColor: "#14161a",
+    color: "#ffffff",
+    minHeight: "100vh"
+  }, 
+}));
 
 function App() {
-  const useStyles = makeStyles(() => ({
-    crypto__app:  {
-      backgroundColor: "#14161a",
-      color: "#ffffff",
-      minHeight: "100vh"
-    }, 
-  }));
 
   const classes = useStyles();
 
