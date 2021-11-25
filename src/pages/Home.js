@@ -1,9 +1,12 @@
-import React from 'react'
+import React from 'react';
+import Banner from '../components/banner/Banner';
+import CoinsTable from "../components/coins_table/CoinsTable"
 
 const Home = () => {
     return (
         <div>
-            Home Crypto
+            <Banner />
+            <CoinsTable />
         </div>
     )
 }
